@@ -1,8 +1,14 @@
 package org.lessons.java.book;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+	
+	static final File bookList = new File("./bookList.txt");
 	
 	public static void main(String[] args) {
 		
@@ -14,7 +20,9 @@ public class Main {
 		
 		Book[] books = new Book[nBook]; 
 		
-		for (int x = 0; x < nBook; x++) {
+		int i = 0;
+		
+		while (i < nBook) {
 			
 			System.out.println("Inserisci il titolo del libro: ");
 			String title = in.nextLine();
@@ -31,7 +39,8 @@ public class Main {
 			
 			try {
 				
-				books[x] = new Book(title, nPage, author, publisher);
+				books[i] = new Book(title, nPage, author, publisher);
+				i++;
 				
 			} catch (Exception e) {
 				
@@ -41,18 +50,57 @@ public class Main {
 		}
 		
 		in.close();
-				
-		if(!(books == null)) {
+		
+		//scrivo nel file
+		
+		FileWriter myWriter = null;
+		
+		try {
 			
-			for (int x = 0; x < books.length; x++) {
-			    if (books[x] != null) {
-			        System.out.println(books[x]);
-			        
-			    }
+			myWriter = new FileWriter(bookList);
+			
+			for (int x=0 ; x < books.length; x++) {
+				
+				Book b = books[x];
+				
+				myWriter.write(b + "\n");
+			}
+		} catch (IOException e) {
+			
+			System.out.println("Error writing file: " + e.getMessage());
+		} finally {
+			
+			if (myWriter != null)
+				try {
+					myWriter.close();
+				} catch (IOException e) { }
+		}	
+		
+		
+		//leggo dal file
+		
+		Scanner reader = null;
+		
+		try {
+			
+			reader = new Scanner(bookList);
+			
+			while (reader.hasNextLine()) {
+			   String data = reader.nextLine();
+			   
+				System.out.println(data);
+			}
+		} catch (FileNotFoundException e) {
+			
+			System.out.println("Error reading file: " + e.getMessage());
+		} finally {
+			
+			if (reader != null) {
+				
+				reader.close();
 			}
 		}
 		
-
 	}
 	
 }

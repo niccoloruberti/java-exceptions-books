@@ -1,0 +1,12 @@
+titolo: libro1
+numero pagine: 34
+autore: dfr
+editore: ferf
+----------
+
+titolo: libro2
+numero pagine: 34
+autore: fder
+editore: fregf
+----------
+

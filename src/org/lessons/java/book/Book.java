@@ -71,7 +71,7 @@ public class Book {
 	@Override
 	public String toString() {
 		
-		return "titolo; " + getTitle() + "\n"
+		return "titolo: " + getTitle() + "\n"
 				+"numero pagine: " + getnPage() + "\n"
 				+"autore: " + getAuthor() + "\n"
 				+"editore: " + getPublisher() + "\n"
